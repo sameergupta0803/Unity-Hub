@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="project.js"></script>
-    <link rel="stylesheet" href="navbar.css">
-    <link rel="stylesheet" href="project.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet" />
-    <title>Project Management</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="navbar.css">
+  <script src="project.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet" />
+  <link rel="stylesheet" href="project.css">
+  <style>
+    
+  </style>
 </head>
-
 <body>
     <nav id="navbar">
         <div class="nav-content">
@@ -21,7 +21,6 @@
             <div class="nav-links">
                 <a href="Home.html" class="nav-link">Home</a>
                 <a href="projects.html" class="nav-link active">Projects</a>
-                <a href="Features.html" class="nav-link">Features</a>
                 <a href="About.html" class="nav-link">About</a>
                 <a href="Contact.html" class="nav-link">Contact</a>
                 <div class="auth-buttons">
@@ -35,63 +34,40 @@
             </div>
         </div>
     </nav>
-    <div class="container">
-        <div class="card">
-            <h2 class="card-title">Projects</h2>
-            <button id="createProjectBtn" class="btn-primary">Create New Project</button>
-            <div class="sort-controls">
-                <span class="sort-label">Sort by:</span>
-                <select id="sortType" class="sort-select">
-                    <option value="priority">Priority</option>
-                    <option value="date">Due Date</option>
-                </select>
-            </div>
-            <div id="projectList" class="project-grid">
-                <!-- Projects will be added here dynamically -->
-            </div>
-        </div>
+    
+  <section class="projects-container">
+    <h1 style="font-size: 32px; margin-bottom: 20px;">Government Projects</h1>
+    
+    <div class="filter-container">
+      <div class="filter-tabs">
+        <div class="filter-tab active" data-status="all">All Projects</div>
+        <div class="filter-tab" data-status="upcoming">Upcoming</div>
+        <div class="filter-tab" data-status="ongoing">Ongoing</div>
+        <div class="filter-tab" data-status="completed">Completed</div>
+      </div>
+      
+      <div class="search-filter">
+        <input type="text" id="search-input" placeholder="Search projects...">
+        <select id="department-filter">
+          <option value="all">All Departments</option>
+          <option value="transport">Transport</option>
+          <option value="healthcare">Healthcare</option>
+          <option value="education">Education</option>
+          <option value="infrastructure">Infrastructure</option>
+          <option value="energy">Energy</option>
+        </select>
+      </div>
     </div>
-
-    <!-- Modal -->
-    <div id="projectModal" class="modal-overlay">
-        <div class="modal">
-            <div class="modal-header">
-                <h2 class="modal-title">Create New Project</h2>
-                <button class="close-button">&times;</button>
-            </div>
-            <form id="projectForm">
-                <div class="form-group">
-                    <label class="form-label">Project Name</label>
-                    <input type="text" id="projectName" required class="form-control">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Description</label>
-                    <textarea id="projectDescription" required></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Due Date</label>
-                    <input type="date" id="projectDate" required class="form-control">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Priority</label>
-                    <select id="projectPriority" required class="form-control">
-                        <option value="">Select Priority</option>
-                        <option value="high">High Priority</option>
-                        <option value="medium">Medium Priority</option>
-                        <option value="low">Low Priority</option>
-                    </select>
-                </div>
-
-                <div class="modal-buttons">
-                    <button type="button" class="btn-secondary" id="cancelBtn">Cancel</button>
-                    <button type="submit" class="btn-primary">Create Project</button>
-                </div>
-            </form>
-        </div>
+    
+    <div class="projects-grid" id="projects-grid">
+      <!-- Projects will be dynamically inserted here -->
     </div>
+  </section>
+  <footer>
+    <p>&copy; 2025 Unity Hub. All rights reserved.</p>
+  </footer>
+  <script>
+   
+  </script>
 </body>
-
 </html>

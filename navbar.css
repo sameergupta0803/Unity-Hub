@@ -169,7 +169,12 @@ nav {
     padding: 3rem 1rem;
   }
 }
-
+footer {
+  background: #000000;
+  color: #fff;
+  text-align: center;
+  padding: 1rem 0;
+}
 /* Responsive Design */
 @media (max-width: 768px) {
   .nav-links {

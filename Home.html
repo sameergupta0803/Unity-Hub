@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Modern Landing Page</title>
-  <script src="home.js"></script>
+
   <!-- <script src="project.js" defer></script> -->
   <link rel="stylesheet" href="navbar.css">
   <link rel="stylesheet" href="home.css" />
@@ -14,7 +14,7 @@
 </head>
 
 <body class="light">
-  <!-- Navigation -->
+  Navigation
   <nav id="navbar">
     <div class="nav-content">
       <div class="nav-left">
@@ -23,7 +23,6 @@
       <div class="nav-links">
         <a href="Home.html" class="nav-link active">Home</a>
         <a href="projects.html" class="nav-link">Projects</a>
-        <a href="Features.html" class="nav-link">Features</a>
         <a href="About.html" class="nav-link">About</a>
         <a href="Contact.html" class="nav-link">Contact</a>
         <div class="auth-buttons">
@@ -136,12 +135,46 @@
       <button class="modal-close" onclick="closeRegister()">Close</button>
     </div>
   </div>
-
+<!-- Features Section -->
+<section class="features" id="features">
+  <h2 class="section-title">Our Features</h2>
+  <div class="title-underline"></div>
+  <div class="features-grid">
+      <div class="feature-card">
+          <div class="feature-icon">🤝</div>
+          <h3 class="feature-title">Collaboration</h3>
+          <p class="feature-description">
+              Break down silos and work seamlessly across departments with our
+              intuitive collaboration tools.
+          </p>
+          <a href="#" class="feature-link">Learn More →</a>
+      </div>
+      <div class="feature-card">
+          <div class="feature-icon">📈</div>
+          <h3 class="feature-title">Project Tracking</h3>
+          <p class="feature-description">
+              Monitor progress and manage projects efficiently with real-time
+              updates and analytics.
+          </p>
+          <a href="#" class="feature-link">Learn More →</a>
+      </div>
+      <div class="feature-card">
+          <div class="feature-icon">🔄</div>
+          <h3 class="feature-title">Resource Sharing</h3>
+          <p class="feature-description">
+              Share data and resources effortlessly across departments with secure
+              access controls.
+          </p>
+          <a href="#" class="feature-link">Learn More →</a>
+      </div>
+  </div>
+</section>
   <!-- Footer -->
   <footer>
     <p>&copy; 2025 Unity Hub. All rights reserved.</p>
   </footer>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+  <script src="home.js"></script>
 </body>
 
 </html>
