@@ -1,0 +1,48 @@
+<link rel="stylesheet" href="home.css" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="navbar.css">
+<nav id="navbar">
+    <div class="nav-content">
+        <div class="nav-left">
+            <div class="logo">Unity Hub</div>
+        </div>
+        <div class="nav-links">
+            <a href="Home.html" class="nav-link">Home</a>
+            <a href="projects.html" class="nav-link">Projects</a>
+            <a href="Features.html" class="nav-link">Features</a>
+            <a href="About.html" class="nav-link">About</a>
+            <a href="Contact.html" class="nav-link active">Contact</a>
+            <div class="auth-buttons">
+                <button class="btn btn-secondary" onclick="openLogin()">
+                    Login
+                </button>
+                <button class="btn btn-primary" onclick="openRegister()">
+                    Sign Up
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Contact Section -->
+<section class="contact" id="contact">
+    <div class="contact-content">
+        <h2 class="section-title">Contact Us</h2>
+        <p>Have questions? We'd love to hear from you.</p>
+        <form class="contact-form" onsubmit="handleContactSubmit(event)">
+            <div class="form-group">
+                <label for="contact-name">Name</label>
+                <input type="text" id="contact-name" required />
+            </div>
+            <div class="form-group">
+                <label for="contact-email">Email</label>
+                <input type="email" id="contact-email" required />
+            </div>
+            <div class="form-group">
+                <label for="contact-message">Message</label>
+                <textarea id="contact-message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+    </div>
+</section>

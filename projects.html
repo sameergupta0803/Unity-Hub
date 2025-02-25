@@ -1,35 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="project.js"></script>
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="project.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
     <title>Project Management</title>
 </head>
+
 <body>
     <nav id="navbar">
         <div class="nav-content">
-          <div class="nav-left">
-            <div class="logo">Unity Hub</div>
-          </div>
-          <div class="nav-links">
-            <a href="Home.html" class="nav-link">Home</a>
-            <a href="projects.html" class="nav-link active">Projects</a>
-            <a href="#features" class="nav-link">Features</a>
-            <a href="#about" class="nav-link">About</a>
-            <a href="#contact" class="nav-link">Contact</a>
-            <div class="auth-buttons">
-              <button class="btn btn-secondary" onclick="openLogin()">
-                Login
-              </button>
-              <button class="btn btn-primary" onclick="openRegister()">
-                Sign Up
-              </button>
+            <div class="nav-left">
+                <div class="logo">Unity Hub</div>
             </div>
-          </div>
+            <div class="nav-links">
+                <a href="Home.html" class="nav-link">Home</a>
+                <a href="projects.html" class="nav-link active">Projects</a>
+                <a href="Features.html" class="nav-link">Features</a>
+                <a href="About.html" class="nav-link">About</a>
+                <a href="Contact.html" class="nav-link">Contact</a>
+                <div class="auth-buttons">
+                    <button class="btn btn-secondary" onclick="openLogin()">
+                        Login
+                    </button>
+                    <button class="btn btn-primary" onclick="openRegister()">
+                        Sign Up
+                    </button>
+                </div>
+            </div>
         </div>
-      </nav>
+    </nav>
     <div class="container">
         <div class="card">
             <h2 class="card-title">Projects</h2>
@@ -59,17 +64,17 @@
                     <label class="form-label">Project Name</label>
                     <input type="text" id="projectName" required class="form-control">
                 </div>
-                
+
                 <div class="form-group">
                     <label class="form-label">Description</label>
                     <textarea id="projectDescription" required></textarea>
                 </div>
-                
+
                 <div class="form-group">
                     <label class="form-label">Due Date</label>
                     <input type="date" id="projectDate" required class="form-control">
                 </div>
-                
+
                 <div class="form-group">
                     <label class="form-label">Priority</label>
                     <select id="projectPriority" required class="form-control">
@@ -87,129 +92,6 @@
             </form>
         </div>
     </div>
-
-    <script>
-        class ProjectManager {
-            constructor() {
-                this.projects = JSON.parse(localStorage.getItem('projects')) || [];
-                this.modal = document.getElementById('projectModal');
-                this.form = document.getElementById('projectForm');
-                this.projectList = document.getElementById('projectList');
-                this.sortSelect = document.getElementById('sortType');
-                
-                this.init();
-            }
-
-            init() {
-                // Modal controls
-                document.getElementById('createProjectBtn').addEventListener('click', () => this.openModal());
-                document.querySelector('.close-button').addEventListener('click', () => this.closeModal());
-                document.getElementById('cancelBtn').addEventListener('click', () => this.closeModal());
-                
-                // Close modal when clicking outside
-                this.modal.addEventListener('click', (e) => {
-                    if (e.target === this.modal) this.closeModal();
-                });
-
-                this.form.addEventListener('submit', (e) => this.handleSubmit(e));
-                this.sortSelect.addEventListener('change', () => this.renderProjects());
-                this.renderProjects();
-            }
-
-            openModal() {
-                this.modal.style.display = 'flex';
-            }
-
-            closeModal() {
-                this.modal.style.display = 'none';
-                this.form.reset();
-            }
-
-            handleSubmit(e) {
-                e.preventDefault();
-                
-                const project = {
-                    id: Date.now(),
-                    name: document.getElementById('projectName').value,
-                    description: document.getElementById('projectDescription').value,
-                    date: document.getElementById('projectDate').value,
-                    priority: document.getElementById('projectPriority').value
-                };
-
-                this.projects.push(project);
-                this.saveProjects();
-                this.renderProjects();
-                this.closeModal();
-            }
-
-            async deleteProject(id) {
-                const projectElement = document.querySelector(`[data-id="${id}"]`);
-                projectElement.style.animation = 'slideUp 0.5s ease reverse';
-
-                await new Promise(resolve => setTimeout(resolve, 500));
-
-                this.projects = this.projects.filter(project => project.id !== id);
-                this.saveProjects();
-                this.renderProjects();
-            }
-
-            saveProjects() {
-                localStorage.setItem('projects', JSON.stringify(this.projects));
-            }
-
-            formatDate(dateString) {
-                return new Date(dateString).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                });
-            }
-
-            sortProjects() {
-                const sortType = this.sortSelect.value;
-                
-                if (sortType === 'priority') {
-                    return [...this.projects].sort((a, b) => {
-                        const priorityOrder = { high: 1, medium: 2, low: 3 };
-                        const priorityDiff = priorityOrder[a.priority] - priorityOrder[b.priority];
-                        if (priorityDiff === 0) {
-                            return new Date(a.date) - new Date(b.date);
-                        }
-                        return priorityDiff;
-                    });
-                } else {
-                    return [...this.projects].sort((a, b) => new Date(a.date) - new Date(b.date));
-                }
-            }
-
-            renderProjects() {
-                this.projectList.innerHTML = '';
-                
-                const sortedProjects = this.sortProjects();
-
-                sortedProjects.forEach(project => {
-                    const projectElement = document.createElement('div');
-                    projectElement.className = `project-item ${project.priority}-priority`;
-                    projectElement.setAttribute('data-id', project.id);
-                    projectElement.innerHTML = `
-                        <div class="project-info">
-                            <div class="project-priority priority-${project.priority}">
-                                ${project.priority.charAt(0).toUpperCase() + project.priority.slice(1)} Priority
-                            </div>
-                            <h3>${project.name}</h3>
-                            <div class="project-description">${project.description}</div>
-                            <div class="project-date">Due: ${this.formatDate(project.date)}</div>
-                            <button class="btn-delete" onclick="projectManager.deleteProject(${project.id})">
-                                Delete
-                            </button>
-                        </div>
-                    `;
-                    this.projectList.appendChild(projectElement);
-                });
-            }
-        }
-
-        const projectManager = new ProjectManager();
-    </script>
 </body>
+
 </html>
