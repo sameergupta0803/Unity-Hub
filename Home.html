@@ -25,13 +25,14 @@
         <a href="projects.html" class="nav-link">Projects</a>
         <a href="About.html" class="nav-link">About</a>
         <a href="Contact.html" class="nav-link">Contact</a>
-        <div class="auth-buttons">
-          <button class="btn btn-secondary" onclick="openLogin()">
-            Login
-          </button>
-          <button class="btn btn-primary" onclick="openRegister()">
-            Sign Up
-          </button>
+        <div class="auth-buttons" id="auth-buttons">
+          <button class="btn btn-secondary" onclick="openLogin()">Login</button>
+          <button class="btn btn-primary" onclick="openRegister()">Sign Up</button>
+        </div>
+
+        <div id="user-profile" style="display: none;">
+          <a href="dashboard.html" class="nav-link">Dashboard</a>
+          <img src="profile.jpg" alt="Profile Picture" class="profile-pic" />
         </div>
       </div>
     </div>
@@ -135,46 +136,59 @@
       <button class="modal-close" onclick="closeRegister()">Close</button>
     </div>
   </div>
-<!-- Features Section -->
-<section class="features" id="features">
-  <h2 class="section-title">Our Features</h2>
-  <div class="title-underline"></div>
-  <div class="features-grid">
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <h2 class="section-title">Our Features</h2>
+    <div class="title-underline"></div>
+    <div class="features-grid">
       <div class="feature-card">
-          <div class="feature-icon">🤝</div>
-          <h3 class="feature-title">Collaboration</h3>
-          <p class="feature-description">
-              Break down silos and work seamlessly across departments with our
-              intuitive collaboration tools.
-          </p>
-          <a href="#" class="feature-link">Learn More →</a>
+        <div class="feature-icon">🤝</div>
+        <h3 class="feature-title">Collaboration</h3>
+        <p class="feature-description">
+          Break down silos and work seamlessly across departments with our
+          intuitive collaboration tools.
+        </p>
+        <a href="#" class="feature-link">Learn More →</a>
       </div>
       <div class="feature-card">
-          <div class="feature-icon">📈</div>
-          <h3 class="feature-title">Project Tracking</h3>
-          <p class="feature-description">
-              Monitor progress and manage projects efficiently with real-time
-              updates and analytics.
-          </p>
-          <a href="#" class="feature-link">Learn More →</a>
+        <div class="feature-icon">📈</div>
+        <h3 class="feature-title">Project Tracking</h3>
+        <p class="feature-description">
+          Monitor progress and manage projects efficiently with real-time
+          updates and analytics.
+        </p>
+        <a href="#" class="feature-link">Learn More →</a>
       </div>
       <div class="feature-card">
-          <div class="feature-icon">🔄</div>
-          <h3 class="feature-title">Resource Sharing</h3>
-          <p class="feature-description">
-              Share data and resources effortlessly across departments with secure
-              access controls.
-          </p>
-          <a href="#" class="feature-link">Learn More →</a>
+        <div class="feature-icon">🔄</div>
+        <h3 class="feature-title">Resource Sharing</h3>
+        <p class="feature-description">
+          Share data and resources effortlessly across departments with secure
+          access controls.
+        </p>
+        <a href="#" class="feature-link">Learn More →</a>
       </div>
-  </div>
-</section>
+    </div>
+  </section>
   <!-- Footer -->
   <footer>
     <p>&copy; 2025 Unity Hub. All rights reserved.</p>
   </footer>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
   <script src="home.js"></script>
+  <script>
+    window.onload = () => {
+      const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+      if (isLoggedIn) {
+        const authBtns = document.getElementById('auth-buttons');
+        const userProfile = document.getElementById('user-profile');
+
+        if (authBtns) authBtns.style.display = 'none';
+        if (userProfile) userProfile.style.display = 'flex';
+      }
+    };
+  </script>
 </body>
 
 </html>

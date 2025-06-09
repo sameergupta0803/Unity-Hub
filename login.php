@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'db.php';
+require 'db.php'; // This should create $conn using mysqli_connect()
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Retrieve and sanitize form data
@@ -8,27 +8,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
 
     // Prepare SQL statement to find user by email
-    $stmt = $pdo->prepare("SELECT * FROM Users WHERE email = ?");
-    $stmt->execute([$email]);
-    $user = $stmt->fetch();
+    $stmt = mysqli_prepare($conn, "SELECT * FROM Users WHERE email = ?");
+    
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "s", $email);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        
+        if ($user = mysqli_fetch_assoc($result)) {
+            // Verify the password
+            if (password_verify($password, $user['password'])) {
+                // Password is correct: create session
+                $_SESSION['user_id'] = $user['user_id'];
+                $_SESSION['user_email'] = $user['email'];
+                $_SESSION['user_name'] = $user['name']; // Adjust as needed
 
-    if ($user) {
-        // Verify the password
-        if (password_verify($password, $user['password'])) {
-            // Password is correct: create session
-            $_SESSION['user_id'] = $user['user_id'];
-            $_SESSION['user_email'] = $user['email'];
-            $_SESSION['user_name'] = $user['first_name']; // Adjust according to your table
-
-            // You can redirect or send a JSON response
-            echo json_encode(['status' => 'success', 'message' => 'Login successful']);
-            exit;
+                echo json_encode(['status' => 'success', 'message' => 'Login successful']);
+            } else {
+                echo json_encode(['status' => 'error', 'message' => 'Invalid credentials']);
+            }
         } else {
-            echo json_encode(['status' => 'error', 'message' => 'Invalid credentials']);
-            exit;
+            echo json_encode(['status' => 'error', 'message' => 'User not found']);
         }
+
+        mysqli_stmt_close($stmt);
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'User not found']);
-        exit;
+        echo json_encode(['status' => 'error', 'message' => 'Failed to prepare statement']);
     }
+
+    mysqli_close($conn);
+    exit;
 }

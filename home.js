@@ -27,7 +27,8 @@ function closeRegister() {
   document.getElementById("register-modal").style.display = "none";
 }
 function handleLogin(e) {
-  e.preventDefault();
+  e.preventDefault(); // prevent default form submission
+
   const form = e.target;
   const formData = new FormData(form);
 
@@ -38,19 +39,22 @@ function handleLogin(e) {
     .then(response => response.json())
     .then(data => {
       if (data.status === 'success') {
-        alert(data.message);
-        closeLogin();
-        // Optionally, redirect to a dashboard:
-        // window.location.href = 'dashboard.php';
+        // Store login state in localStorage
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('userEmail', data.email); // optional, if you're returning email from backend
+
+        // Redirect to dashboard
+        window.location.href = 'dashboard.html';
       } else {
-        alert(data.message);
+        alert(data.message || 'Login failed. Please try again.');
       }
     })
     .catch(error => {
-      console.error('Error:', error);
-      alert('An error occurred during login.');
+      console.error('Login error:', error);
+      alert('An error occurred during login. Please try again later.');
     });
 }
+
 function handleRegister(e) {
   e.preventDefault();
 
