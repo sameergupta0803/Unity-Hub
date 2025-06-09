@@ -1,4 +1,3 @@
-
     //sub menu pop up
     let subMenu = document.getElementById("subMenu");
     function toggleMenu() {

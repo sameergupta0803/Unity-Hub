@@ -21,9 +21,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Password is correct: create session
                 $_SESSION['user_id'] = $user['user_id'];
                 $_SESSION['user_email'] = $user['email'];
-                $_SESSION['user_name'] = $user['name']; // Adjust as needed
+                $_SESSION['user_name'] = $user['name'];
 
-                echo json_encode(['status' => 'success', 'message' => 'Login successful']);
+                echo json_encode([
+                    'status' => 'success', 
+                    'message' => 'Login successful',
+                    'email' => $user['email'],
+                    'name' => $user['name']
+                ]);
             } else {
                 echo json_encode(['status' => 'error', 'message' => 'Invalid credentials']);
             }

@@ -29,11 +29,11 @@
           <button class="btn btn-secondary" onclick="openLogin()">Login</button>
           <button class="btn btn-primary" onclick="openRegister()">Sign Up</button>
         </div>
-
         <div id="user-profile" style="display: none;">
           <a href="dashboard.html" class="nav-link">Dashboard</a>
-          <img src="profile.jpg" alt="Profile Picture" class="profile-pic" />
+          <div class="profile-pic"></div>
         </div>
+        <button id="logout-btn" class="btn btn-secondary" style="display:none;">Logout</button>
       </div>
     </div>
   </nav>
@@ -176,19 +176,7 @@
   </footer>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
   <script src="home.js"></script>
-  <script>
-    window.onload = () => {
-      const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-
-      if (isLoggedIn) {
-        const authBtns = document.getElementById('auth-buttons');
-        const userProfile = document.getElementById('user-profile');
-
-        if (authBtns) authBtns.style.display = 'none';
-        if (userProfile) userProfile.style.display = 'flex';
-      }
-    };
-  </script>
+  <script src="navbar.js"></script>
 </body>
 
 </html>

@@ -39,10 +39,14 @@ function handleLogin(e) {
     .then(response => response.json())
     .then(data => {
       if (data.status === 'success') {
-        // Store login state in localStorage
+        // Store login state and user info in localStorage
         localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('userEmail', data.email); // optional, if you're returning email from backend
+        localStorage.setItem('userEmail', data.email);
+        localStorage.setItem('userName', data.name || data.email.split('@')[0]);
 
+        // Update UI
+        updateNavbarState();
+        
         // Redirect to dashboard
         window.location.href = 'dashboard.html';
       } else {
@@ -54,6 +58,32 @@ function handleLogin(e) {
       alert('An error occurred during login. Please try again later.');
     });
 }
+
+// Function to update navbar state based on login status
+function updateNavbarState() {
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  const authBtns = document.getElementById('auth-buttons');
+  const userProfile = document.getElementById('user-profile');
+  const profilePic = document.querySelector('.profile-pic');
+
+  if (isLoggedIn) {
+    if (authBtns) authBtns.style.display = 'none';
+    if (userProfile) {
+      userProfile.style.display = 'flex';
+      // Set profile picture text (first letter of username)
+      if (profilePic) {
+        const userName = localStorage.getItem('userName') || '';
+        profilePic.textContent = userName.charAt(0).toUpperCase();
+      }
+    }
+  } else {
+    if (authBtns) authBtns.style.display = 'flex';
+    if (userProfile) userProfile.style.display = 'none';
+  }
+}
+
+// Call updateNavbarState when page loads
+document.addEventListener('DOMContentLoaded', updateNavbarState);
 
 function handleRegister(e) {
   e.preventDefault();

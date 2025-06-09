@@ -1,4 +1,3 @@
-
 // Expanded projects data with location field added
 const projects = [
 {
